@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>敦煌文化知识问答</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #f5e6c8, #fff7e6);
+            color: #4a2f1a;
+        }
+        header {
+            background: linear-gradient(90deg, #b23a2a, #d9a85c);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+        h2 {
+            border-left: 8px solid #b23a2a;
+            padding-left: 12px;
+            margin-top: 40px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 6px 0;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #b23a2a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #8f2e22;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            height: 160px;
+            object-fit: cover;
+        }
+        footer {
+            background: #4a2f1a;
+            color: #f5e6c8;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+        a {
+            color: #d9a85c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏜️ 敦煌文化知识问答</h1>
+    <p>走进丝绸之路上的千年艺术宝库</p>
+</header>
+
+<section>
+    <h2>🌟 敦煌印象 · 图片长廊</h2>
+    <div class="gallery">
+        <img src="https://pic2.zhimg.com/100/v2-ab45d55563b50ac3b3211d8a3c34dedb_r.jpg" alt="莫高窟外景">
+        <img src="https://img1.baidu.com/it/u=523778257,3133065367&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=602" alt="壁画细节">
+        <img src="https://img2.baidu.com/it/u=3190114639,1428713798&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=800" alt="乐舞图">
+        <img src="https://img2.baidu.com/it/u=2138283304,3784157367&fm=253&app=138&f=JPEG?w=800&h=1068" alt="佛像雕塑">
+    </div>
+</section>
+
+<section>
+    <h2>📚 敦煌基础知识问答</h2>
+
+    <div class="card">
+        <div class="question">1️⃣ 敦煌莫高窟始建于哪个朝代？</div>
+        <label><input type="radio" name="q1" value="a"> 秦朝</label>
+        <label><input type="radio" name="q1" value="b"> 汉朝</label>
+        <label><input type="radio" name="q1" value="c"> 前秦</label>
+        <label><input type="radio" name="q1" value="d"> 唐朝</label>
+    </div>
+
+    <div class="card">
+        <div class="question">2️⃣ 以下哪些属于敦煌壁画常见题材？（多选）</div>
+        <label><input type="checkbox" name="q2" value="a"> 佛教故事</label>
+        <label><input type="checkbox" name="q2" value="b"> 飞天形象</label>
+        <label><input type="checkbox" name="q2" value="c"> 现代科技</label>
+        <label><input type="checkbox" name="q2" value="d"> 经变画</label>
+    </div>
+
+    <div class="card">
+        <div class="question">3️⃣ 敦煌藏经洞发现于哪一年？</div>
+        <label><input type="radio" name="q3" value="a"> 1899</label>
+        <label><input type="radio" name="q3" value="b"> 1900</label>
+        <label><input type="radio" name="q3" value="c"> 1910</label>
+        <label><input type="radio" name="q3" value="d"> 1921</label>
+    </div>
+
+    <div class="card">
+        <div class="question">4️⃣ 判断题：敦煌莫高窟是世界文化遗产。</div>
+        <label><input type="radio" name="q4" value="true"> 正确</label>
+        <label><input type="radio" name="q4" value="false"> 错误</label>
+    </div>
+
+    <div class="card">
+        <div class="question">5️⃣ 简答题：请简要写出一项敦煌壁画的艺术特色。</div>
+        <input type="text" placeholder="请输入你的答案...">
+    </div>
+
+    <button onclick="alert('感谢参与敦煌知识问答！')">提交答案</button>
+</section>
+
+<section>
+    <h2>🔗 相关机构与官方网站</h2>
+    <div class="card">
+        <ul>
+            <li><a href="https://www.dha.ac.cn/" target="_blank">敦煌研究院官网</a></li>
+            <li><a href="http://www.ncha.gov.cn/" target="_blank">国家文物局</a></li>
+            <li><a href="https://wlt.gansu.gov.cn/" target="_blank">甘肃省文化和旅游厅</a></li>
+            <li><a href="https://www.chinamuseum.org.cn/" target="_blank">中国博物馆协会</a></li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 敦煌文化知识问答 | 内容仅供学习与科普</p>
+    <p>图片与资料来源：敦煌研究院、国家文物局公开资源</p>
+    <a><strong>© 2026 Yan.</strong></a>
+    <a>© 1998 - 2026 Tencent. All Rights Reserved.</a>
+</footer>
+
+</body>
+</html>
