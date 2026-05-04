@@ -126,6 +126,41 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+            display: block;
+        }
+        
+        .color-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Yu Gothic UI', 'Meiryo', 'MS Gothic', sans-serif;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        
+        .color-input:focus {
+            outline: none;
+            border-color: #4a6fa5;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+        
+        .input-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+        }
+        
         .current-color-info {
             text-align: center;
             padding: 20px;
@@ -303,8 +338,8 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-palette"></i> RGB颜色混合实验室</h1>
-            <p class="subtitle">从调色盘选择或拖动滑块混合颜色，点击颜色值即可复制</p>
+            <h1><i class="fas fa-palette"></i> 颜色混合实验室</h1>
+            <p class="subtitle">从调色盘选择、拖动滑块或输入颜色值，点击颜色值即可复制</p>
         </header>
         
         <div class="lab-content">
@@ -314,6 +349,13 @@
                 <div class="palette-section">
                     <div class="palette-title">调色盘</div>
                     <div class="color-palette" id="colorPalette"></div>
+                    
+                    <div class="input-section">
+                        <label class="input-label" for="colorInput">输入颜色值</label>
+                        <input type="text" class="color-input" id="colorInput" placeholder="#FF5733 或 rgb(255, 87, 51)">
+                        <div class="input-hint">支持 HEX (#RGB, #RRGGBB) 或 RGB (rgb(r,g,b)) 格式</div>
+                    </div>
+                    
                     <div class="palette-title">当前颜色值</div>
                     <div class="current-color-info" id="colorInfo">
                         <div class="hex-value" id="hexValue">#FF0000</div>
@@ -351,7 +393,7 @@
         </div>
         
         <footer>
-            <p>从调色盘选择颜色或拖动滑块调整RGB值 | 点击颜色值即可复制HEX和RGB值</p>
+            <p>© 2013 - 2026 Yanverse</p>
         </footer>
     </div>
     
@@ -372,6 +414,7 @@
         const notification = document.getElementById('notification');
         const body = document.body;
         const colorPalette = document.getElementById('colorPalette');
+        const colorInput = document.getElementById('colorInput');
         
         // 初始化颜色
         let red = 255;
@@ -432,6 +475,9 @@
             greenSlider.value = g;
             blueSlider.value = b;
             
+            // 更新输入框
+            colorInput.value = hexColor;
+            
             // 更新颜色
             updateColor();
         }
@@ -456,6 +502,11 @@
             hexValue.textContent = hex;
             rgbValue.textContent = `rgb(${red}, ${green}, ${blue})`;
             
+            // 更新输入框（如果输入框不是当前焦点）
+            if (document.activeElement !== colorInput) {
+                colorInput.value = hex;
+            }
+            
             // 更新背景渐变
             updateBackgroundGradient();
             
@@ -476,6 +527,61 @@
         // RGB转HEX函数
         function rgbToHex(r, g, b) {
             return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+        }
+        
+        // 解析颜色输入
+        function parseColorInput(input) {
+            input = input.trim().toLowerCase();
+            
+            // 检查HEX格式 (#RGB 或 #RRGGBB)
+            if (input.startsWith('#')) {
+                // 移除#号
+                input = input.substring(1);
+                
+                // 处理3位HEX (#RGB)
+                if (input.length === 3) {
+                    input = input[0] + input[0] + input[1] + input[1] + input[2] + input[2];
+                }
+                
+                // 验证是否为6位有效的HEX
+                if (input.length === 6 && /^[0-9a-f]{6}$/i.test(input)) {
+                    const r = parseInt(input.substring(0, 2), 16);
+                    const g = parseInt(input.substring(2, 4), 16);
+                    const b = parseInt(input.substring(4, 6), 16);
+                    return { r, g, b };
+                }
+            }
+            
+            // 检查RGB格式 (rgb(r, g, b))
+            const rgbMatch = input.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            if (rgbMatch) {
+                const r = parseInt(rgbMatch[1]);
+                const g = parseInt(rgbMatch[2]);
+                const b = parseInt(rgbMatch[3]);
+                
+                // 验证RGB值是否在有效范围内
+                if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
+                    return { r, g, b };
+                }
+            }
+            
+            return null;
+        }
+        
+        // 处理颜色输入
+        function handleColorInput() {
+            const input = colorInput.value;
+            const color = parseColorInput(input);
+            
+            if (color) {
+                // 更新滑块值
+                redSlider.value = color.r;
+                greenSlider.value = color.g;
+                blueSlider.value = color.b;
+                
+                // 更新颜色
+                updateColor();
+            }
         }
         
         // 更新背景渐变
@@ -515,6 +621,9 @@
         greenSlider.addEventListener('input', updateColor);
         blueSlider.addEventListener('input', updateColor);
         colorInfo.addEventListener('click', copyToClipboard);
+        colorInput.addEventListener('input', handleColorInput);
+        colorInput.addEventListener('change', handleColorInput);
+        colorInput.addEventListener('blur', handleColorInput);
         
         // 初始化
         generatePalette();
