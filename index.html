@@ -4,6 +4,29 @@
     <meta charset="utf-8">
     <title>Yanverse</title>
     <p><strong>Welcome to Yanverse !</strong></p>
+    <style>
+.time-box {
+    width: 280px;
+    padding: 20px;
+    margin: 100px auto;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+    font-family: Arial, sans-serif;
+}
+
+.time {
+    font-size: 34px;
+    color: #222;
+}
+
+.date {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+</style>
   </head>
 <div class="box">
     <h2>你的访问信息</h2>
@@ -24,6 +47,36 @@ fetch('https://ipapi.co/json/')
     document.getElementById('version').innerText = 'IP版本：获取失败';
     document.getElementById('country').innerText = '国家：获取失败';
 });
+</script>
+<div class="time-box">
+    <div id="time" class="time">--:--:--</div>
+    <div id="date" class="date">----年--月--日 星期-</div>
+</div>
+<script>
+function updateTime() {
+    const now = new Date();
+
+    // 使用用户本地时区 & 24小时制
+    const timeStr = now.toLocaleTimeString('zh-CN', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+
+    const dateStr = now.toLocaleDateString('zh-CN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+    });
+
+    document.getElementById('time').textContent = timeStr;
+    document.getElementById('date').textContent = dateStr;
+}
+
+updateTime();
+setInterval(updateTime, 1000);
 </script>
 <body>
     <p>友情链接：</p>
