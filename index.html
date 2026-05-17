@@ -116,7 +116,7 @@ setInterval(updateTime, 1000);
     <a href="search">Search</a><br>
   </body>
     <div class="container">
-    <input id="name" type="text" placeholder="请输入姓名">
+    <textarea id="name" placeholder="请输入姓名"></textarea>
     <select id="shenfen" onchange="handleSelect()">
         <option value="">游客</option>
         <option value="匿名用户">匿名用户</option>
@@ -128,13 +128,10 @@ setInterval(updateTime, 1000);
 </div>
 <script>
 function handleSelect() {
-    const select = document.getElementById('shenfen');
-    const input = document.getElementById('name');
-
-    if (select.value === "匿名用户") {
-        input.value = "匿名用户";
+    if (shenfen.value === "匿名用户") {
+        name.value = "匿名用户";
     } else {
-        input.value = "";
+        name.value = "";
     }
 }
 </script>
