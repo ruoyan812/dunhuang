@@ -79,14 +79,15 @@ fetch('https://ipapi.co/json/')
     document.getElementById('country').innerText = '国家：获取失败';
 });
 </script>
-  <script>
+<script>
 if (navigator.userAgentData) {
   navigator.userAgentData.getHighEntropyValues(["uaFullVersion"])
     .then(ua => {
-      document.heady.innerHTML += `
+      const info = `
         <p>浏览器品牌：${navigator.userAgentData.brands.map(b => b.brand).join(", ")}</p>
         <p>浏览器版本：${ua.uaFullVersion}</p>
       `;
+      document.body.insertAdjacentHTML("afterbegin", info);
     });
 }
 </script>
